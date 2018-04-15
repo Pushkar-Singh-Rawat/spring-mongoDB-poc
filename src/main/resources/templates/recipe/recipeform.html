@@ -145,6 +145,15 @@
                                         ' - ' + ingred.getDescription())}">1
 												Teaspoon of Sugar</li>
 										</ul>
+										 <div th:each="ingredientEach, idx : ${recipe.ingredient}" >
+                                        <input  type="hidden" th:field="*{ingredient[__${idx.index}__].ingredientID}" />
+                                        <input  type="hidden" th:field="*{ingredient[__${idx.index}__].description}" />
+                                        <input  type="hidden" th:field="*{ingredient[__${idx.index}__].amount}" />
+                                        <input  type="hidden" th:field="*{ingredient[__${idx.index}__].unitOfMeasurement.uomID}" />
+                                    </div>
+                                    <div th:each="catEach, idx : ${recipe.categories}" >
+                                        <input  type="hidden" th:field="*{categories[__${idx.index}__].catgID}" />
+                                    </div>
 									</div>
 								</div>
 							</div>
