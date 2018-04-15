@@ -1,16 +1,10 @@
 package com.example.demo.model;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -25,20 +19,22 @@ public class Ingredient {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	private String ingredientID;
+	//@Id this is inside the document as a nested key val so Id will not be generated
+	private String ingredientID=UUID.randomUUID().toString(); //assigs random UUID
 	private String description;
 	private BigDecimal amount;
 
-	private Recipe recipe; // to which ingredient belongs
+	
+	//private Recipe recipe; // to which ingredient belongs
 
-
+    @DBRef
 	private UnitOfMeasurement unitOfMeasurement;
 
 	public Ingredient(String description, BigDecimal amount, UnitOfMeasurement unitOfMeasurement,Recipe recipe) {
 		this.description = description;
 		this.amount = amount;
 		this.unitOfMeasurement = unitOfMeasurement;
-		this.recipe=recipe;
+		//this.recipe=recipe;
 	}
 
 	public Ingredient(String description, BigDecimal amount, UnitOfMeasurement unitOfMeasurement) {

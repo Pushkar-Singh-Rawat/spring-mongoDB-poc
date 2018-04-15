@@ -2,11 +2,9 @@ package com.example.demo.model;
 
 import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Data;
 import lombok.Getter;
@@ -14,6 +12,7 @@ import lombok.Setter;
 
 @Setter
 @Getter
+@Document
 public class Category {
 
 	public Category() {
@@ -21,9 +20,11 @@ public class Category {
 		// TODO Auto-generated constructor stub
 	}
 
+	@Id
 	private String catgID;
 	private String description;
 
+	@DBRef
 	private Set<Recipe> recipes;
 	/*
 	 * public Long getCatgID() { return catgID; } public void setCatgID(Long

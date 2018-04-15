@@ -4,23 +4,15 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 
+@Document
 public class Recipe {
 
+	@Id
 	private String recipeID;
 
 	private Integer prepTime;
@@ -39,6 +31,7 @@ public class Recipe {
 	
 	private Difficulty difficulty;
 
+	@DBRef
 	public Set<Category> categories = new HashSet<>();
 
 	public Set<Ingredient> getIngredient() {
@@ -55,7 +48,7 @@ public class Recipe {
 	}
 
 	public Recipe addIngredient(Ingredient ingredient) {
-		ingredient.setRecipe(this);
+		//ingredient.setRecipe(this);
 		this.ingredient.add(ingredient);
 		return this;
 	}
@@ -131,7 +124,7 @@ public class Recipe {
 	public void setNotes(Notes notes) {
 		if (notes != null) {
 			this.notes = notes;
-			notes.setRecipe(this);
+			//notes.setRecipe(this);
 		}
 
 	}

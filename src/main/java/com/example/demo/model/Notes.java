@@ -1,11 +1,7 @@
 package com.example.demo.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.OneToOne;
+
+import org.springframework.data.annotation.Id;
 
 import lombok.Data;
 import lombok.Getter;
@@ -15,12 +11,12 @@ import lombok.Setter;
 @Setter
 public class Notes {
 
-	
+	@Id
 	private String notesID;
 
 	private String recipeNotes; //will be saved as a CLOB
 	
-	private Recipe recipe;
+	//private Recipe recipe;
 
 	public Notes() {
 		super();
