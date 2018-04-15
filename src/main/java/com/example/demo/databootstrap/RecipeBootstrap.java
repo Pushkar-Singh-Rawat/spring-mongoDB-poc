@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import javax.transaction.Transactional;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
@@ -51,19 +51,19 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
 		// adding categories
 		Optional<Category> indianCategoryOptional = categoryRepository.findByDescription("Indian");
 		if (!indianCategoryOptional.isPresent()) {
-			throw new RuntimeException("expected UOM not found");
+			throw new RuntimeException("expected cat not found");
 		}
 		Optional<Category> americanCategoryOptional = categoryRepository.findByDescription("American");
 		if (!americanCategoryOptional.isPresent()) {
-			throw new RuntimeException("expected UOM not found");
+			throw new RuntimeException("expected cat not found");
 		}
 		Optional<Category> italianCategoryOptional = categoryRepository.findByDescription("Italian");
 		if (!italianCategoryOptional.isPresent()) {
-			throw new RuntimeException("expected UOM not found");
+			throw new RuntimeException("expected cat not found");
 		}
 		Optional<Category> fastFoodCategoryOptional = categoryRepository.findByDescription("Fast Food");
 		if (!fastFoodCategoryOptional.isPresent()) {
-			throw new RuntimeException("expected UOM not found");
+			throw new RuntimeException("expected cat not found");
 		}
 
 		// get all the categories added above
@@ -183,10 +183,67 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
 		recipes.add(butterMasala);
 		return recipes;
 	}
+	private void loadCategories(){
+		Category cat1 = new Category();
+		cat1.setDescription("American");
+		categoryRepository.save(cat1);
+
+		Category cat2 = new Category();
+		cat2.setDescription("Italian");
+		categoryRepository.save(cat2);
+
+		Category cat3 = new Category();
+		cat3.setDescription("Mexican");
+		categoryRepository.save(cat3);
+
+		Category cat4 = new Category();
+		cat4.setDescription("Fast Food");
+		categoryRepository.save(cat4);
+		
+		Category cat5 = new Category();
+		cat5.setDescription("Indian");
+		categoryRepository.save(cat5);
+	}
+
+	private void loadUom(){
+		UnitOfMeasurement uom1 = new UnitOfMeasurement();
+		uom1.setDescription("Teaspoon");
+		unitOfMeasurementRepository.save(uom1);
+
+		UnitOfMeasurement uom2 = new UnitOfMeasurement();
+		uom2.setDescription("Tablespoon");
+		unitOfMeasurementRepository.save(uom2);
+
+		UnitOfMeasurement uom3 = new UnitOfMeasurement();
+		uom3.setDescription("Cup");
+		unitOfMeasurementRepository.save(uom3);
+
+		UnitOfMeasurement uom4 = new UnitOfMeasurement();
+		uom4.setDescription("Pinch");
+		unitOfMeasurementRepository.save(uom4);
+
+		UnitOfMeasurement uom5 = new UnitOfMeasurement();
+		uom5.setDescription("Ounce");
+		unitOfMeasurementRepository.save(uom5);
+
+		UnitOfMeasurement uom6 = new UnitOfMeasurement();
+		uom6.setDescription("Each");
+		unitOfMeasurementRepository.save(uom6);
+
+		UnitOfMeasurement uom7 = new UnitOfMeasurement();
+		uom7.setDescription("Pint");
+		unitOfMeasurementRepository.save(uom7);
+
+		UnitOfMeasurement uom8 = new UnitOfMeasurement();
+		uom8.setDescription("Dash");
+		unitOfMeasurementRepository.save(uom8);
+	}
 
 	@Override
-	@Transactional //now every ops happens in the same txn session
+	
 	public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
+		 loadCategories();
+	        loadUom();
 		recipeRepository.saveAll(getRecipes());
 	}
 
