@@ -1,6 +1,8 @@
 package com.example.demo.commands;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.validation.constraints.Max;
@@ -47,9 +49,9 @@ public class RecipeCommand {
 
 	private NotesCommand notes;
 
-	private Set<IngredientCommand> ingredient = new HashSet<>();
+	private List<IngredientCommand> ingredient = new ArrayList<>(); //spring binds th tag values to a List instead of a set
 
 	private Difficulty difficulty;
 
-	public Set<CategoryCommand> categories = new HashSet<>();
+	public List<CategoryCommand> categories = new ArrayList<>();
 }
