@@ -81,7 +81,7 @@ public class IngredientController {
 		RecipeCommand recipeCommand = recipeService.findCommandById(recipeid);
 
 		IngredientCommand ingredientCommand = new IngredientCommand();
-		ingredientCommand.setRecipeID(recipeid);
+		//ingredientCommand.setRecipeID(recipeid);
 		ingredientCommand.setUnitOfMeasurement(new UnitOfMeasurementCommand());
 
 		model.addAttribute("ingredient", ingredientCommand);
@@ -91,10 +91,10 @@ public class IngredientController {
 
 	@PostMapping("/recipe/{recipeid}/ingredient")
 	public String saveOrUpdate(@ModelAttribute IngredientCommand command) { //uom and recipeid=null
-		System.out.println("++++++++++++++++++++++++++++++" + command.getRecipeID());
+		//System.out.println("++++++++++++++++++++++++++++++" + command.getRecipeID());
 		IngredientCommand savedIngredientCommand = ingredientService.saveIngredientCommand(command);
 
-		log.debug("saved recipe id is" + savedIngredientCommand.getRecipeID());
+		//log.debug("saved recipe id is" + savedIngredientCommand.getRecipeID());
 		log.debug("saved ingredient id is" + savedIngredientCommand.getIngredientID());
 		return "redirect:/recipe/" + savedIngredientCommand.getRecipeID() + "/ingredients/"
 				+ savedIngredientCommand.getIngredientID() + "/show/";
