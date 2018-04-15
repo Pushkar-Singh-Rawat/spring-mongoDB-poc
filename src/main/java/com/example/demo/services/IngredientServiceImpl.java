@@ -62,6 +62,8 @@ public class IngredientServiceImpl implements IngredientService {
 			log.error("ingredient with id " + ingredientid + " is not present");
 		}
 
+		/*IngredientCommand ingredientCommand=ingredientCommandOptional.get();
+		ingredientCommand.setRecipeID(recipeid);*/
 		/*
 		 * Optional<Recipe>
 		 * recipe=recipeRepository.findById(recipeid);
@@ -103,7 +105,7 @@ public class IngredientServiceImpl implements IngredientService {
 			} else {
 				// for adding new ingredient.
 				Ingredient newIngredient = ingredientCommandToIngredient.convert(command);
-				newIngredient.setRecipe(recipe);
+				//newIngredient.setRecipe(recipe);
 				recipe.addIngredient(newIngredient);
 			}
 
@@ -121,7 +123,10 @@ public class IngredientServiceImpl implements IngredientService {
 						.findFirst();
 
 			}
-			return ingredientToIngredientCommand.convert(savedIngredientOptional.get());
+			
+			IngredientCommand savedIngredientCommand=ingredientToIngredientCommand.convert(savedIngredientOptional.get());
+			savedIngredientCommand.setRecipeID(recipe.getRecipeID());
+			return savedIngredientCommand;
 
 		}
 
@@ -136,7 +141,7 @@ public class IngredientServiceImpl implements IngredientService {
 					.filter(ingredient -> ingredient.getIngredientID().equals(ingredientid)).findFirst();
 			if (ingredientOptional.isPresent()) {
 				
-				ingredientOptional.get().setRecipe(null);
+				//ingredientOptional.get().setRecipe(null);
 				recipe.getIngredient().remove(ingredientOptional.get());
 				recipeRepository.save(recipe);
 			}
